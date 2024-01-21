@@ -26,8 +26,13 @@ header{
     color: var(--color1light);
 }
 
+#highscores{
+    width: 0;
+}
+
 #highscores:hover{
     color: var(--color1dark);
+    cursor: pointer;
 }
 
 #score-card{
