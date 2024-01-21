@@ -16,12 +16,22 @@
             <h1 id="score">0</h1>
         </div>
         <h2 id="question">Here is where i will put the text of the questions</h2>
-        <div id="answer-box">
+        <section id="answer-box">
             <button class="answer">here is where i will put the text of the answers</button>
             <button class="answer">A2</button>
             <button class="answer">A3</button>
             <button class="answer">A4</button>
-        </div>
+        </section>
+        <section id="quiz-results">
+            <h3 id="final-score">Your Score: 0</h3>
+            <span>Enter Your Initals to Save to Leaderboard:</span>
+            <input type="text" maxlength="3" style="text-transform: uppercase;">
+            <div id="button-holder">
+                <button id="submit-button">Submit</button>
+                <button id="close-button">Close</button>
+            </div>
+        </section>
+        <div id="grey-out"></div>
     </main>
     <script src="./Assets/JavaScript/questionDictionary.js"></script>
     <script src="./Assets/JavaScript/script.js"></script>
