@@ -7,8 +7,12 @@ var startBtn = document.getElementById("start-button");
 var greyOut = document.getElementById("grey-out");
 var quizResults = document.getElementById("quiz-results");
 var scoreDisplay = document.getElementById("final-score");
+var initials = document.getElementById("initials");
 var submitBtn = document.getElementById("submit-button");
 var closeBtn = document.getElementById("close-button");
+var leaderboardBtn = document.getElementById("highscores");
+var leaderboard = document.getElementById("leaderboard");
+var leaderboardEntryTemplate = document.getElementById("leaderboard-entry-template");
 
 var questionObject;
 var shuffledAnswers;
@@ -16,6 +20,18 @@ var intervalID;
 
 var timeInSeconds = 100;
 var score = 0;
+
+function TopScores(){
+    this.initials = "";
+    this.score = 0;
+}
+
+var topScores = [];
+topScores = JSON.parse(localStorage.getItem("scores"));
+buildLeaderboard();
+
+var showingLeaderboard = false;
+var leaderboardEntriesElms = [];
 
 displayTime(timeInSeconds);
 
@@ -100,6 +116,52 @@ function reloadPage(){
     location.reload();
 }
 
+function submitScore(){
+    if(initials.value.length <= 0) return;
+
+    var newScore = new TopScores();
+    newScore.initials = initials.value;
+    newScore.score = score;
+    console.log(topScores);
+
+    if(topScores != null){
+        topScores.push(newScore);
+        topScores.sort((a,b) => {
+            return b.score - a.score;
+        });
+    }
+    else topScores = [newScore];
+
+    localStorage.setItem("scores", JSON.stringify(topScores));
+    location.reload();
+}
+
+function highscoresButton(){
+    if(!showingLeaderboard){
+        leaderboard.style.display = "block";
+        showingLeaderboard = true;
+    }
+    else{
+        leaderboard.style.display = "none";
+        showingLeaderboard = false;
+    }
+}
+
+function buildLeaderboard(){
+    for(var i = 0; i < topScores.length;i++){
+        var newEntry = leaderboardEntryTemplate.cloneNode(true);
+        newEntry.id = "leaderboard-entry-" + i;
+        var position = newEntry.querySelector(".leaderboard-position");
+        position.innerText = i + 1 + ".";
+        var entryInitials = newEntry.querySelector(".leaderboard-initials");
+        entryInitials.innerText = topScores[i].initials.toUpperCase();
+        var entryScore = newEntry.querySelector(".leaderboard-score");
+        entryScore.innerText = topScores[i].score;
+        leaderboard.appendChild(newEntry);
+    }
+}
+
 startBtn.addEventListener("click", startQuiz);
 closeBtn.addEventListener("click", reloadPage);
-submitBtn.addEventListener("click", reloadPage);
+submitBtn.addEventListener("click", submitScore);
+leaderboardBtn.addEventListener("click", highscoresButton)

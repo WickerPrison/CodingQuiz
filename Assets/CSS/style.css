@@ -19,6 +19,7 @@ html, body{
 header{
     background-color: var(--color2);
     width: 100%;
+    height: 3em;
     position: relative;
     left: 0;
     top: 0;
@@ -35,6 +36,37 @@ header{
 #highscores:hover{
     color: var(--color1dark);
     cursor: pointer;
+}
+
+#leaderboard{
+    display: none;
+    width: 20%;
+    position: absolute;
+    left: 0;
+    top: 3em;
+    background-color: var(--color2);
+    border-top: 0.1em black solid;
+    box-sizing: border-box;
+}
+
+.leaderboard-entry{
+    display: flex;
+    justify-content: left;
+    padding: 0.2em 5%;
+    text-align: left;
+}
+
+.leaderboard-entry *{
+    margin: 0 5%;
+    flex-basis: 30%;
+}
+
+.leaderboard-position{
+    flex-basis: 10%;
+}
+
+#leaderboard-entry-template{
+    display: none;
 }
 
 #score-card{
