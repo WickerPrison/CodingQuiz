@@ -2,6 +2,8 @@ var timer = document.getElementById("timer");
 var question = document.getElementById("question");
 var answersElms = document.getElementsByClassName("answer");
 var scoreElm = document.getElementById("score");
+var startScreen = document.getElementById("start");
+var startBtn = document.getElementById("start-button");
 var greyOut = document.getElementById("grey-out");
 var quizResults = document.getElementById("quiz-results");
 var scoreDisplay = document.getElementById("final-score");
@@ -10,18 +12,29 @@ var closeBtn = document.getElementById("close-button");
 
 var questionObject;
 var shuffledAnswers;
+var intervalID;
 
 var timeInSeconds = 100;
 var score = 0;
 
 displayTime(timeInSeconds);
 
-var intervalID = setInterval(function startTimer() { 
-    timeInSeconds--;
-    displayTime(timeInSeconds);
-}, 1000);
- 
-loadQuestion(0);
+function startQuiz(){
+    intervalID = setInterval(function startTimer() { 
+        timeInSeconds--;
+        displayTime(timeInSeconds);
+    }, 1000);
+     
+    for(var i = 0; i < answersElms.length; i++){
+        answersElms[i].addEventListener("click", answerQuestion);
+        answersElms[i].style.pointerEvents = "all";
+    }
+
+    startScreen.style.display = "none";
+    greyOut.style.backgroundColor = "rgba(0,0,0,0)";
+
+    loadQuestion(0);
+}
 
 function displayTime(timeInSeconds){
     if(timeInSeconds <= 0){
@@ -87,8 +100,6 @@ function reloadPage(){
     location.reload();
 }
 
-for(var i = 0; i < answersElms.length; i++){
-    answersElms[i].addEventListener("click", answerQuestion);
-}
+startBtn.addEventListener("click", startQuiz);
 closeBtn.addEventListener("click", reloadPage);
 submitBtn.addEventListener("click", reloadPage);

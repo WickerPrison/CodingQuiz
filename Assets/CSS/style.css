@@ -25,6 +25,7 @@ header{
     padding: 1em;
     color: var(--color1light);
     box-sizing: border-box;
+    z-index: 3;
 }
 
 #highscores{
@@ -66,6 +67,7 @@ header{
     background-color: var(--color2);
     margin: 1em;
     color: var(--color1light);
+    pointer-events: none;
 }
 
 .answer:hover{
@@ -86,7 +88,7 @@ button{
 
 #grey-out{
     pointer-events: none;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 100%;
     z-index: 2;
@@ -95,8 +97,7 @@ button{
     top: 0;
 }
 
-#quiz-results{
-    display: none;
+.popup{
     background-color: var(--color2);
     width: var(--mainWidth);
     position: absolute;
@@ -105,6 +106,18 @@ button{
     border-radius: 1em; 
     z-index: 3;
     text-align: center;
+}
+
+#quiz-results{
+    display: none;
+}
+
+#start{
+    display: block;
+}
+
+#start button{
+    margin: 1.5em auto;
 }
 
 h3{
@@ -129,7 +142,8 @@ input{
 span{
     display: block;
     color: var(--color1light);
-    margin: 1em;
+    width: 80%;
+    margin: 1em auto;
 }
 
 #button-holder{
@@ -141,7 +155,7 @@ span{
     box-sizing: border-box;
 }
 
-#button-holder button{
+.popup button{
     flex-basis: 20%;
     width: 10%;
     background-color: var(--color1);
@@ -149,10 +163,10 @@ span{
     text-align: center;
     font-size: larger;
     padding: 0.5em;
-    margin: 0.7em;
+    margin: 0.7em auto;
 }
 
-#button-holder button:hover{
+.popup button:hover{
     background-color: var(--color1dark);
     color: var(--color2);
 }
