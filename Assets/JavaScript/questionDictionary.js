@@ -20,7 +20,7 @@ var questionDictionary = [
     },
 
     question4 = {
-        "Question":"JSON stands for ____",
+        "Question":"JSON stands for",
         "Answers": [
         "Java Script Object Notation", 
         "Java Script Oriented Nodes",

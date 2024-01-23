@@ -202,3 +202,21 @@ span{
     background-color: var(--color1dark);
     color: var(--color2);
 }
+
+@media (max-width: 690px) {
+    :root{
+        --mainWidth: 80%;
+    }
+
+    #leaderboard{
+        width: 50%;
+    }
+
+    #button-holder{
+        width: 100%;
+    }
+
+    #start button{
+        width: 40%;
+    }
+}
