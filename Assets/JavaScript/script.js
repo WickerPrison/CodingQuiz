@@ -14,11 +14,13 @@ var leaderboardBtn = document.getElementById("highscores");
 var leaderboard = document.getElementById("leaderboard");
 var leaderboardEntryTemplate = document.getElementById("leaderboard-entry-template");
 
+var askedQuestions = [];
 var questionObject;
 var shuffledAnswers;
 var intervalID;
 
-var timeInSeconds = 100;
+var initialTime = 100;
+var timeInSeconds = initialTime;
 var score = 0;
 
 function TopScores(){
@@ -49,7 +51,7 @@ function startQuiz(){
     startScreen.style.display = "none";
     greyOut.style.backgroundColor = "rgba(0,0,0,0)";
 
-    loadQuestion(0);
+    loadQuestion();
 }
 
 function displayTime(timeInSeconds){
@@ -73,8 +75,20 @@ function displayTime(timeInSeconds){
     timer.innerText = minutes + ":" + tensPlaceDigit + timeInSeconds;
 }
 
-function loadQuestion(index){
-    questionObject = window.questionDictionary[index];
+function loadQuestion(){
+    var lookingForInt = true;
+    while(lookingForInt){
+        var randInt = Math.floor(Math.random() * window.questionDictionary.length);
+        if(!askedQuestions.includes(randInt)) {
+            askedQuestions.push(randInt);
+            lookingForInt = false;
+        }
+    }
+    
+
+    questionObject = window.questionDictionary[randInt];
+    console.log(randInt);
+    console.log(questionObject);
     question.innerText = questionObject.Question;
     shuffledAnswers = shuffleArray(questionObject.Answers);
     for(var i = 0; i < shuffledAnswers.length; i++){
@@ -85,8 +99,15 @@ function loadQuestion(index){
 
 function answerQuestion(event){
     if(questionObject.Answers.indexOf(shuffledAnswers[event.currentTarget.answerIndex])==0){
-        score += 10;
+        var scoreIncrease = Math.floor(50 * timeInSeconds / initialTime);
+        score += scoreIncrease;
         scoreElm.innerText = score;
+        if(window.questionDictionary.length == askedQuestions.length){
+            quizOver();
+        }
+        else{
+            loadQuestion();
+        }
     }
     else{
         timeInSeconds -= 15;
@@ -95,6 +116,7 @@ function answerQuestion(event){
 }
 
 function quizOver(){
+    clearInterval(intervalID);
     greyOut.style.backgroundColor = "rgba(0,0,0,0.5)";
     quizResults.style.display = "block";
     scoreDisplay.innerText = "Your Score: " + score;
