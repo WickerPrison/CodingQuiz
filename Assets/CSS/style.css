@@ -6,7 +6,7 @@
     --color2: #247C94;
     --color2dark: #103742; 
 
-    --mainWidth: 50%;
+    --mainWidth: 60%;
 }
 
 html, body{
@@ -14,6 +14,7 @@ html, body{
     padding: 0;
     margin: 0;
     background-color: var(--color1);
+    font-size: 20px;
 }
 
 header{
@@ -42,7 +43,7 @@ header{
 /* this is the leaderboard itself */
 #leaderboard{
     display: none;
-    width: 20%;
+    width: 25%;
     position: absolute;
     left: 0;
     top: 3em;
@@ -122,6 +123,7 @@ button{
     border-radius: 0.6em;
     box-shadow: 0 0 10px -5px black;
     padding: 1em;
+    font-size: 18px;
 }
 
 /* this greys out the main screen while popups are showing by having JavaScript change the alpha channel of the background color */
@@ -216,6 +218,14 @@ span{
 @media (max-width: 690px) {
     :root{
         --mainWidth: 80%;
+    }
+
+    html, body{
+        font-size: 16px;
+    }
+
+    button{
+        font-size: 14px;
     }
 
     #leaderboard{
