@@ -29,6 +29,7 @@ header{
     z-index: 3;
 }
 
+/* This is the leaderboard button on the header */
 #highscores{
     width: 0;
 }
@@ -38,6 +39,7 @@ header{
     cursor: pointer;
 }
 
+/* this is the leaderboard itself */
 #leaderboard{
     display: none;
     width: 20%;
@@ -65,10 +67,12 @@ header{
     flex-basis: 10%;
 }
 
+/* this hides the template for leaderboard entries */
 #leaderboard-entry-template{
     display: none;
 }
 
+/* this is the time and score at top of screen */
 #score-card{
     display: flex;
     width: var(--mainWidth);
@@ -83,6 +87,7 @@ header{
     margin: 0.6em;
 }
 
+/* this sets up the question text */
 #question{
     width: var(--mainWidth);
     margin: 0 auto;
@@ -107,6 +112,7 @@ header{
     color: var(--color1);
 }
 
+/* this applies to all buttons */
 button{
     border: none;
     text-align: left;
@@ -118,6 +124,7 @@ button{
     padding: 1em;
 }
 
+/* this greys out the main screen while popups are showing by having JavaScript change the alpha channel of the background color */
 #grey-out{
     pointer-events: none;
     background-color: rgba(0, 0, 0, 0.5);
@@ -140,10 +147,12 @@ button{
     text-align: center;
 }
 
+/* this is used to show or hide the quiz results popup */
 #quiz-results{
     display: none;
 }
 
+/* this is used to show or hide the start popup */
 #start{
     display: block;
 }
@@ -158,6 +167,7 @@ h3{
     color: white;
 }
 
+/* this is the input where people can input initials */
 input{
     display: block;
     background-color: var(--color1);

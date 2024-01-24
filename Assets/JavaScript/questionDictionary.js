@@ -1,6 +1,9 @@
+// This script contains an array of objects. It is referenced by the other js file and is used as a dictionary
 var questionDictionary = [
+    // each question has an object in this array. The objects contain a question string and an answers array
     question2 = {
         "Question":"Functions can return which of the following?",
+        // The first entry in the answers array is the correct answer for each question
         "Answers": [
         "These are all valid", 
         "Strings",

@@ -1,3 +1,4 @@
+// get references to needed elements
 var timer = document.getElementById("timer");
 var question = document.getElementById("question");
 var answersElms = document.getElementsByClassName("answer");
@@ -14,6 +15,7 @@ var leaderboardBtn = document.getElementById("highscores");
 var leaderboard = document.getElementById("leaderboard");
 var leaderboardEntryTemplate = document.getElementById("leaderboard-entry-template");
 
+// set up variables that will be used later
 var askedQuestions = [];
 var questionObject;
 var shuffledAnswers;
@@ -23,11 +25,13 @@ var initialTime = 100;
 var timeInSeconds = initialTime;
 var score = 0;
 
+// the top scores will be saved using an array of this function
 function TopScores(){
     this.initials = "";
     this.score = 0;
 }
 
+// sets up the leaderboard from local storage
 var topScores = [];
 topScores = JSON.parse(localStorage.getItem("scores"));
 buildLeaderboard();
@@ -37,12 +41,15 @@ var leaderboardEntriesElms = [];
 
 displayTime(timeInSeconds);
 
+// called when start button is pressed. starts timer and loads first question
 function startQuiz(){
+    // starts timer
     intervalID = setInterval(function startTimer() { 
         timeInSeconds--;
         displayTime(timeInSeconds);
     }, 1000);
      
+    // attaches event listeners to answer buttons
     for(var i = 0; i < answersElms.length; i++){
         answersElms[i].addEventListener("click", answerQuestion);
         answersElms[i].style.pointerEvents = "all";
@@ -54,6 +61,7 @@ function startQuiz(){
     loadQuestion();
 }
 
+// this is called every second to update the time display. When time reaches zero this function calls the quizOver function
 function displayTime(timeInSeconds){
     if(timeInSeconds <= 0){
         timeInSeconds = 0;
@@ -75,8 +83,10 @@ function displayTime(timeInSeconds){
     timer.innerText = minutes + ":" + tensPlaceDigit + timeInSeconds;
 }
 
+// loads the next question
 function loadQuestion(){
     var lookingForInt = true;
+    // finds an integer that has not been used before to get a random question from dictionary
     while(lookingForInt){
         var randInt = Math.floor(Math.random() * window.questionDictionary.length);
         if(!askedQuestions.includes(randInt)) {
@@ -85,10 +95,8 @@ function loadQuestion(){
         }
     }
     
-
+    // randomly places answers on each button
     questionObject = window.questionDictionary[randInt];
-    console.log(randInt);
-    console.log(questionObject);
     question.innerText = questionObject.Question;
     shuffledAnswers = shuffleArray(questionObject.Answers);
     for(var i = 0; i < shuffledAnswers.length; i++){
@@ -97,6 +105,7 @@ function loadQuestion(){
     }
 }
 
+// called when an answer is selected. Determines if answer is correct and responds accordingly
 function answerQuestion(event){
     if(questionObject.Answers.indexOf(shuffledAnswers[event.currentTarget.answerIndex])==0){
         var scoreIncrease = Math.floor(50 * timeInSeconds / initialTime);
@@ -115,6 +124,7 @@ function answerQuestion(event){
     }
 }
 
+// called when quiz ends. stops timer. pulls up results popup
 function quizOver(){
     clearInterval(intervalID);
     greyOut.style.backgroundColor = "rgba(0,0,0,0.5)";
@@ -122,7 +132,7 @@ function quizOver(){
     scoreDisplay.innerText = "Your Score: " + score;
 }
 
-// shuffles array using the Durstenfeld shuffle
+// shuffles array using the Durstenfeld shuffle method
 function shuffleArray(originalArray) {
     var newArray = Array.from(originalArray);
     for (var i = originalArray.length - 1; i > 0; i--) {
@@ -138,13 +148,13 @@ function reloadPage(){
     location.reload();
 }
 
+// adds new score, sorts scores, and saves them to local storage
 function submitScore(){
     if(initials.value.length <= 0) return;
 
     var newScore = new TopScores();
     newScore.initials = initials.value;
     newScore.score = score;
-    console.log(topScores);
 
     if(topScores != null){
         topScores.push(newScore);
@@ -158,6 +168,7 @@ function submitScore(){
     location.reload();
 }
 
+// shows the leaderboard
 function highscoresButton(){
     if(!showingLeaderboard){
         leaderboard.style.display = "block";
@@ -169,6 +180,7 @@ function highscoresButton(){
     }
 }
 
+// called on initialization. builds the elements that make up the leaderboard entries by copying leaderboard entry template from html
 function buildLeaderboard(){
     for(var i = 0; i < topScores.length;i++){
         var newEntry = leaderboardEntryTemplate.cloneNode(true);
@@ -183,6 +195,7 @@ function buildLeaderboard(){
     }
 }
 
+// sets up event listeners
 startBtn.addEventListener("click", startQuiz);
 closeBtn.addEventListener("click", reloadPage);
 submitBtn.addEventListener("click", submitScore);
