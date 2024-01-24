@@ -182,6 +182,8 @@ function highscoresButton(){
 
 // called on initialization. builds the elements that make up the leaderboard entries by copying leaderboard entry template from html
 function buildLeaderboard(){
+    if(topScores == null) return;
+    
     for(var i = 0; i < topScores.length;i++){
         var newEntry = leaderboardEntryTemplate.cloneNode(true);
         newEntry.id = "leaderboard-entry-" + i;
